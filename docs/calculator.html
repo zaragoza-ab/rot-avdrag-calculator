@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROT-avdrag Kalkylator 2026 — Zaragoza AB</title>
+<meta name="description" content="Öppen ROT-avdrag-kalkylator 2026. Räkna ut ditt ROT-avdrag på renoveringsarbete: 30% av arbetskostnaden, max 50 000 SEK per person och år. Gratis, av Zaragoza AB.">
+<meta name="author" content="Zaragoza AB">
+<link rel="canonical" href="https://zaragoza-ab.github.io/rot-avdrag-calculator/calculator.html">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ROT-avdrag Calculator 2026",
+  "description": "Calculate Swedish ROT tax deduction for renovation labor — 30% of labor cost, max 50 000 SEK per person per year",
+  "url": "https://zaragoza-ab.github.io/rot-avdrag-calculator/calculator.html",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any (web)",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "SEK"},
+  "author": {
+    "@type": "Organization",
+    "name": "Zaragoza AB",
+    "url": "https://zaragoza.se",
+    "telephone": "+46737245628",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Helsingborg",
+      "addressRegion": "Skåne",
+      "addressCountry": "SE"
+    }
+  },
+  "inLanguage": "sv"
+}
+</script>
+
+<style>
+  :root { --bg:#f7f5f1; --fg:#1a1a1a; --accent:#2d6b4a; --muted:#666; --border:#ddd; --card:#fff; }
+  * { box-sizing: border-box; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--fg); margin:0; line-height:1.6; }
+  header { background:var(--accent); color:#fff; padding:28px 20px; text-align:center; }
+  header h1 { margin:0 0 6px; font-size:1.75em; }
+  main { max-width:820px; margin:28px auto; padding:0 16px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  label { display:block; margin:14px 0 6px; font-weight:600; font-size:0.95em; }
+  input, select { width:100%; padding:10px 12px; font-size:1em; border:1px solid var(--border); border-radius:6px; background:#fff; }
+  .result { background:#f0f7f3; border-left:4px solid var(--accent); padding:16px 20px; margin-top:18px; border-radius:4px; }
+  .row { display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #eee; }
+  .row:last-child { border-bottom:0; }
+  .label { color:var(--muted); }
+  .value { font-weight:600; }
+  .big { font-size:1.3em; color:var(--accent); font-weight:700; }
+  .warn { background:#fff4e5; color:#a65; padding:10px 14px; border-radius:4px; margin-top:10px; font-size:0.9em; }
+  footer { text-align:center; padding:30px 20px; color:var(--muted); font-size:0.88em; }
+  footer a { color:var(--accent); }
+  .persons { display:flex; gap:10px; }
+  .persons > div { flex:1; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ROT-avdrag Kalkylator 2026</h1>
+  <p>30% av arbetskostnaden, max 50 000 SEK/person/år</p>
+</header>
+
+<main>
+  <div class="card">
+    <label for="labor">Arbetskostnad inkl. moms (SEK)</label>
+    <input type="number" id="labor" value="50000" min="0" step="1000">
+
+    <label for="material">Materialkostnad inkl. moms (SEK)</label>
+    <input type="number" id="material" value="30000" min="0" step="1000">
+
+    <div class="persons">
+      <div>
+        <label for="persons">Antal personer som delar ROT</label>
+        <select id="persons">
+          <option value="1">1 person</option>
+          <option value="2">2 personer (sambo/gift)</option>
+        </select>
+      </div>
+      <div>
+        <label for="already-used">Redan använt ROT i år (SEK/person)</label>
+        <input type="number" id="already-used" value="0" min="0" step="1000">
+      </div>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0">Vad som kvalificerar för ROT</h3>
+    <ul>
+      <li>Renovering, ombyggnad, tillbyggnad av befintlig bostad</li>
+      <li>Takläggning, fasad, fönsterbyte</li>
+      <li>Kök- och badrumsrenovering</li>
+      <li>VVS- och el-arbete</li>
+      <li>Golv, målning, snickerier</li>
+    </ul>
+    <h3>Som INTE ger ROT</h3>
+    <ul>
+      <li>Nybyggnad av hus</li>
+      <li>Materialkostnad (endast arbetskostnad ger ROT)</li>
+      <li>Eget arbete eller familjemedlemmars arbete</li>
+      <li>Trädgårdsarbete (det är RUT, inte ROT)</li>
+    </ul>
+    <p style="font-size:0.9em;color:var(--muted)">Referens: Inkomstskattelagen 67 kap. · Skatteverket · PBL</p>
+  </div>
+</main>
+
+<footer>
+  <p>Öppen källkod: <a href="https://github.com/zaragoza-ab/rot-avdrag-calculator">github.com/zaragoza-ab/rot-avdrag-calculator</a> · CC BY 4.0</p>
+  <p>Maintained by <a href="https://zaragoza.se">Zaragoza AB</a>, Helsingborg · <a href="tel:+46737245628">+46 73 724 56 28</a> · <a href="mailto:info@zaragoza.se">info@zaragoza.se</a></p>
+</footer>
+
+<script>
+const el = (id) => document.getElementById(id);
+const MAX_PER_PERSON = 50000;
+const RATE = 0.30;
+
+function calculate() {
+  const labor = Math.max(0, parseFloat(el('labor').value) || 0);
+  const material = Math.max(0, parseFloat(el('material').value) || 0);
+  const persons = parseInt(el('persons').value) || 1;
+  const alreadyUsed = Math.max(0, parseFloat(el('already-used').value) || 0);
+
+  const rawDeduction = labor * RATE;
+  const perPersonShare = rawDeduction / persons;
+  const remainingPerPerson = Math.max(0, MAX_PER_PERSON - alreadyUsed);
+  const effectivePerPerson = Math.min(perPersonShare, remainingPerPerson);
+  const totalDeduction = effectivePerPerson * persons;
+  const total = labor + material;
+  const afterRot = total - totalDeduction;
+
+  const cappedOut = perPersonShare > remainingPerPerson;
+
+  let html = `
+    <h3 style="margin-top:0;color:var(--accent)">Ditt ROT-avdrag</h3>
+    <div class="row"><span class="label">Totalt (arbete + material)</span><span class="value">${fmt(total)} SEK</span></div>
+    <div class="row"><span class="label">Arbetskostnad</span><span class="value">${fmt(labor)} SEK</span></div>
+    <div class="row"><span class="label">ROT-avdrag (30%)</span><span class="value">${fmt(rawDeduction)} SEK</span></div>
+  `;
+  if (persons === 2) {
+    html += `<div class="row"><span class="label">Per person (delat på ${persons})</span><span class="value">${fmt(perPersonShare)} SEK</span></div>`;
+  }
+  if (alreadyUsed > 0) {
+    html += `<div class="row"><span class="label">Återstående ROT-tak per person</span><span class="value">${fmt(remainingPerPerson)} SEK</span></div>`;
+  }
+
+  html += `
+    <div class="row" style="margin-top:10px;padding-top:10px;border-top:2px solid var(--accent)">
+      <span class="label">Faktiskt avdrag totalt</span>
+      <span class="value big">−${fmt(totalDeduction)} SEK</span>
+    </div>
+    <div class="row">
+      <span class="label">Du betalar efter ROT</span>
+      <span class="value big">${fmt(afterRot)} SEK</span>
+    </div>
+  `;
+
+  if (cappedOut) {
+    html += `<div class="warn"><strong>Notera:</strong> ROT-taket är nått för en eller flera personer. Resterande del av arbetskostnaden (${fmt((perPersonShare - remainingPerPerson) * persons)} SEK) måste betalas till fullo.</div>`;
+  }
+
+  el('result').innerHTML = html;
+}
+
+function fmt(n) { return Math.round(n).toLocaleString('sv-SE'); }
+
+['labor','material','persons','already-used'].forEach(id => el(id).addEventListener('input', calculate));
+calculate();
+</script>
+
+</body>
+</html>
