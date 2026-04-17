@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROT-avdrag Kalkylator 2026 — Zaragoza AB</title>
+<meta name="description" content="Kalkylera ditt ROT-avdrag för renovering 2026. 30% skattereduktion på arbetskostnad, max 50 000 SEK per person. Från Zaragoza AB, Helsingborg.">
+<meta name="author" content="Zaragoza AB">
+<meta name="keywords" content="rot-avdrag, rotavdrag, skattereduktion, renovering, helsingborg, sverige, 2026">
+<link rel="canonical" href="https://zaragoza.se/rot-kalkylator">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ROT-avdrag Kalkylator 2026",
+  "description": "Interaktiv kalkylator för ROT-avdrag enligt 2026 års regler",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "author": {
+    "@type": "Organization",
+    "name": "Zaragoza AB",
+    "url": "https://zaragoza.se",
+    "logo": "https://zaragoza.se/images/logo.png"
+  },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "SEK" }
+}
+</script>
+
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0; padding: 20px; background: #f5f5f0; color: #222;
+  }
+  .container { max-width: 500px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  h1 { color: #0a5c36; margin: 0 0 8px 0; }
+  .brand { color: #8b7355; font-size: 14px; margin-bottom: 20px; }
+  label { display: block; margin: 16px 0 6px; font-weight: 600; }
+  input[type=number] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+  .result { background: #0a5c36; color: white; padding: 20px; border-radius: 6px; margin-top: 24px; }
+  .result .line { display: flex; justify-content: space-between; margin: 6px 0; }
+  .result .total { font-size: 22px; font-weight: bold; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 10px; margin-top: 10px; }
+  footer { text-align: center; margin-top: 30px; font-size: 12px; color: #666; }
+  a { color: #0a5c36; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>ROT-avdrag Kalkylator</h1>
+  <div class="brand">Zaragoza AB · 2026 års regler</div>
+
+  <label for="labor">Arbetskostnad (SEK):</label>
+  <input type="number" id="labor" value="60000" min="0">
+
+  <label for="material">Materialkostnad (SEK):</label>
+  <input type="number" id="material" value="40000" min="0">
+
+  <label for="persons">Antal ägare (för ROT-tak):</label>
+  <input type="number" id="persons" value="1" min="1" max="10">
+
+  <div class="result" id="result"></div>
+</div>
+
+<footer>
+  Utvecklad av <a href="https://zaragoza.se">Zaragoza AB</a>,
+  Helsingborg · <a href="https://github.com/zaragoza-ab/rot-avdrag-calculator">GitHub</a> ·
+  MIT License
+</footer>
+
+<script>
+function format(n) {
+  return new Intl.NumberFormat('sv-SE').format(Math.round(n)) + ' SEK';
+}
+function calculate() {
+  const labor = parseFloat(document.getElementById('labor').value) || 0;
+  const material = parseFloat(document.getElementById('material').value) || 0;
+  const persons = parseInt(document.getElementById('persons').value) || 1;
+  const total = labor + material;
+  const maxRot = 50000 * persons;
+  const rotRaw = labor * 0.30;
+  const rot = Math.min(rotRaw, maxRot);
+  const payable = total - rot;
+  document.getElementById('result').innerHTML = `
+    <div class="line"><span>Total fakturasumma:</span><span>${format(total)}</span></div>
+    <div class="line"><span>Arbetskostnad × 30%:</span><span>${format(rotRaw)}</span></div>
+    <div class="line"><span>ROT-tak (${persons} × 50 000):</span><span>${format(maxRot)}</span></div>
+    <div class="line"><span>Faktiskt ROT-avdrag:</span><span>${format(rot)}</span></div>
+    <div class="line total"><span>Du betalar:</span><span>${format(payable)}</span></div>
+  `;
+}
+['labor','material','persons'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+calculate();
+</script>
+
+</body>
+</html>
